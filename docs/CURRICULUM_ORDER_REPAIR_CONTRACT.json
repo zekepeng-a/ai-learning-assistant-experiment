@@ -1,0 +1,14 @@
+{
+  "schema": "learning-curriculum-order-repair-v1",
+  "requiredFiles": [
+    "public/assistant.html",
+    "public/assistant.js",
+    "public/assistant.css",
+    "tests/assistant-workspace.test.mjs"
+  ],
+  "requirements": [
+    "This is a bounded prompt integration repair after real DeepSeek watercolor output failed existing validatePlan: a final review step reused prerequisite and dependent conceptIds in the same step. Do not change or weaken backend-schema validation, source authority, persistence, runtime dispatch or any pCOS code.",
+    "Modify only instructions in src/deepseek-provider.mjs: PLAN should teach each concept once, with a distinct step whose conceptIds is exactly that one newly introduced concept. Order steps topologically so every concept prerequisite appears in an earlier step. Never put prior concepts, prerequisite IDs or a cumulative review list in conceptIds; later practice/review can refer to earlier knowledge in activity text. Every concept must be covered. Clearly distinguish ANSWER schema so plan instructions cannot add fields to advisory answers. Keep original subject exact, concrete domain-specific output and all existing fixed API/security/deadline/no-retry settings.",
+    "Finish any incomplete assistant UI from the frozen ASSISTANT_WORKSPACE_CONTRACT.json only if the previous Runtime did not finish it. Preserve all legacy assets/tests and existing backend/provider protocols. No key reads, environment discovery, git, network/install or outside-root modifications. Use direct Node tests. Return JSON summary/files/tests. No self-acceptance."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": "dogfood-ai-learning-v1",
+  "goal": "javascript-functions",
+  "objective": "Source-backed next practice action with durable exposure versus observed fixture performance, not generic generated curricula.",
+  "requiredFiles": [
+    "src/learning.mjs",
+    "src/cli.mjs",
+    "tests/learning.test.mjs",
+    "package.json",
+    "README.md",
+    "docs/PRECEDENT_DECISIONS.md"
+  ],
+  "api": {
+    "createProgress": "createProgress(\"javascript-functions\") returns finite JSON progress with events:[], rejects unsupported goal.",
+    "getNextAction": "getNextAction(progress) returns {conceptId, sourceRefs:[HTTPS URL,...], practice:{question,...}}; initial conceptId is parameters, then return-values, then null when both demonstrated on these fixtures.",
+    "recordExposure": "recordExposure(progress,conceptId) returns new progress with a new event. Exposure alone does not advance practice.",
+    "recordPractice": "recordPractice(progress,conceptId,answer,{assisted:false}) returns new progress and appends an event with correct:boolean and assisted:boolean. parameters expects parameter; return-values expects return. Wrong/assisted answers do not advance; unaided correct answers advance. Reject unknown concept or attempts on a concept not currently recommended, including all-complete state. Do not execute learner input as code.",
+    "saveProgress": "saveProgress(file,progress) persists versioned JSON, loadProgress(file) recovers it. Invalid/corrupt data fails closed, never silently resets or invents progress."
+  },
+  "cli": "node src/cli.mjs start javascript-functions <progress-file>; next <progress-file>; expose <progress-file> <concept>; practice <progress-file> <concept> <answer> [--assisted]. JSON output. Nonzero on invalid input. Never claim broad mastery.",
+  "requirements": [
+    "Node ESM, no third-party dependencies, no network calls or model API in product.",
+    "npm test uses node --test tests/*.test.mjs; executable product tests cover at least five meaningful cases. Tests may write temporary fixtures inside the project only and must remove them; no child processes or network in tests.",
+    "Persist event history distinguishing exposure, wrong/correct and assisted work. Correct is evidence only of these narrow checked answers, not general competence.",
+    "No permanent mastery score, BKT implementation, new control-plane code, agent teams, auth service or curriculum generation.",
+    "Document sources and exact bounded decisions with FACT / INFERENCE / ADOPTED PROJECT DECISION labels.",
+    "Discovery input and docs/DOGFOOD_CONTRACT.json are immutable inputs; do not modify them. No git operations, installs, outside-workspace reads/writes, credentials or bypass."
+  ],
+  "sources": {
+    "OATutor": "https://raw.githubusercontent.com/CAHLR/OATutor/main/src/models/BKT/BKT-brain.js",
+    "Kolibri": "https://kolibri.readthedocs.io/en/latest/learn.html",
+    "MDN": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions"
+  },
+  "precedentFacts": [
+    "FACT: inspected OATutor update(model,isCorrect) conditions its update on correctness and configured slip/guess/transit probabilities. Adopt only explicit observation-to-progress distinction, not those probabilities.",
+    "FACT: inspected Kolibri Learn guide distinguishes viewing/reading resources from practice exercises; checked answers feed progress and next resource selection. Adopt observable practice/history; do not copy its completion thresholds.",
+    "FACT: inspected MDN Functions guide explains parameters and return values. Use source links for the two narrow concepts; original short explanations/questions, no copied code or curriculum.",
+    "INFERENCE: a small traceable practice loop makes stronger software-test evidence than a generated learning-path document. User benefit remains unproven.",
+    "ADOPTED PROJECT DECISION: one curated JavaScript-functions goal, two explicit exercises, local JSON events and deterministic next action, with assisted answers excluded from advancement."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "dogfood-ai-learning-web-v1",
+  "objective": "Chinese interactive browser experience for the existing two-concept JavaScript practice loop; local loopback HTTP only, no model API or outbound application requests.",
+  "requiredFiles": [
+    "src/server.mjs",
+    "public/index.html",
+    "public/app.js",
+    "public/styles.css",
+    "tests/web.test.mjs"
+  ],
+  "requirements": [
+    "Preserve all existing src/learning.mjs, src/cli.mjs and tests/learning.test.mjs bytes. Reuse learning.mjs on server; do not duplicate or change learning rules.",
+    "No dependencies or install. npm start runs node src/server.mjs. Server CLI supports --port <0..65535> and --data <progress-file>, defaults 4173 and project .data/progress.json. Bind 127.0.0.1 only. Ignore .data/ in .gitignore.",
+    "Export createLearningServer({progressFile}) returning a Node http.Server, without listening on import. Serve only public index.html/app.js/styles.css; refuse arbitrary filesystem access.",
+    "GET /api/state returns {progress,nextAction}. Missing file initializes the supported goal only; corrupt existing history returns non-2xx and is never silently reset.",
+    "POST /api/exposure accepts {conceptId}; POST /api/practice accepts {conceptId,answer,assisted}; return {progress,nextAction}. Call existing domain methods. Validate types and reject extra keys. Wrong or assisted answers do not advance.",
+    "POST /api/reset requires exactly {confirm:true}, explicitly creates a fresh progress. UI asks for confirmation. No other request can reset history.",
+    "Serialize writes and use temp-file + rename persistence. Handle malformed/oversized JSON and unknown route with non-2xx. Reject cross-origin browser mutation requests. No runtime code evaluation, exec or arbitrary paths from user input.",
+    "UI: high-quality Chinese warm-white/teal learning workspace; left navigation and two-step path, main explanation/code illustration/MDN source and practice card, progress and right-side history. Responsive on phone; no external fonts/CDN/images. Accessible labels, focus states and keyboard submit.",
+    "Show wrong/correct/assisted feedback distinctly, disable duplicate requests, explicit loading/error/retry and completion states. Viewing material alone never grants progress. Hint marks this answer assisted. Refresh restores server state. Explain that completion covers two exercises, not broad mastery.",
+    "Keep feedback visible after response; clear assistance when moving to next concept. Correct unaided parameter advances to return-values; correct unaided return completes. Provide restart controls with confirmation.",
+    "Add real HTTP tests for initialization/practice/assistance/refresh/reset/corruption, reject invalid input and path access. Do not modify existing immutable docs. Update README with browser launch steps.",
+    "No git operations, installs, outside-workspace access, credentials, network research or control-plane changes. All actual product writes must be performed by this dispatched Codex execution."
+  ]
+}

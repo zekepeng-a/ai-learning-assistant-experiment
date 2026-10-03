@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#123f3b">
+  <title>知微 · JavaScript 学习工作台</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="workspace">
+    <aside class="sidebar" aria-label="学习导航">
+      <a class="brand" href="/" aria-label="知微首页"><span class="brand-mark">知</span><span>知微<small>一点理解，一步前进</small></span></a>
+      <div class="nav-label">我的学习空间</div>
+      <a class="nav-current" href="#lesson">▦ <span>学习工作台</span><span aria-hidden="true">↗</span></a>
+      <div class="path-heading"><h2>当前学习路径</h2><span>JS</span></div>
+      <p class="path-name">认识 JavaScript 函数</p>
+      <ol class="path">
+        <li id="path-parameters"><span class="step-number">01</span><div><strong>函数参数</strong><small id="status-parameters">等待载入</small></div></li>
+        <li id="path-return-values"><span class="step-number">02</span><div><strong>返回值</strong><small id="status-return-values">等待载入</small></div></li>
+      </ol>
+      <div class="sidebar-note"><span class="tiny-label">小步练习 · 清晰证据</span><p>理解一个概念，<br>再用自己的答案检验。</p><small>阅读与提示会被记录；只有独立答对，才会进入下一步。</small></div>
+      <button id="restart" class="text-button" disabled>↺ 重新开始学习</button>
+      <span class="local-note"><span></span> 本地运行 · 无模型调用</span>
+    </aside>
+    <main>
+      <header class="page-header"><div class="breadcrumb">学习工作台 <span>/</span> JavaScript 基础</div><span class="session-tag">专注练习</span></header>
+      <div class="intro"><p class="eyebrow">LEARN A LITTLE. UNDERSTAND A LITTLE MORE.</p><h1>让每一步，都有理解。</h1><p>从函数的输入到输出，用两道小练习建立清晰的认识。</p></div>
+      <div id="connection" role="status" aria-live="polite">正在读取本地学习记录…</div>
+      <div id="error-box" class="error-box" role="alert" hidden><p id="error-message"></p><button id="retry" class="secondary">重新读取记录</button></div>
+      <div class="content-grid">
+        <div class="learning-column">
+          <section class="progress-card" aria-label="练习进度"><div><span class="tiny-label">本次学习</span><strong id="progress-label">已完成 0 / 2 道练习</strong></div><span id="progress-percent">0%</span><progress id="progress" max="2" value="0">0 / 2</progress></section>
+          <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+          <section id="lesson" class="lesson-card" aria-labelledby="lesson-title" hidden>
+            <div class="card-top"><span id="lesson-number" class="eyebrow"></span><span class="pill">概念学习</span></div>
+            <h2 id="lesson-title"></h2><p id="explanation" class="explanation"></p>
+            <div class="code-window"><div class="code-header"><span><i></i><i></i><i></i></span><span>functions.js</span></div><pre><code id="code-example"></code></pre><p id="code-caption"></p></div>
+            <div class="lesson-footer"><a id="source" target="_blank" rel="noopener noreferrer">MDN · 函数参考 ↗ <small>外部阅读，需联网</small></a><button id="exposure" class="text-button" disabled>已阅读，记录一下 ✓</button></div>
+          </section>
+          <section id="practice" class="practice-card" aria-labelledby="practice-title" hidden>
+            <div class="card-top"><span class="eyebrow">TRY IT YOURSELF</span><span class="pill pale">一词作答</span></div>
+            <h2 id="practice-title">轮到你了</h2><p id="question"></p>
+            <form id="answer-form"><label for="answer">你的答案 <span>用一个英文单词回答</span></label><input id="answer" name="answer" type="text" autocomplete="off" spellcheck="false" maxlength="1000" required disabled placeholder="在这里写下你的理解…" aria-describedby="answer-note hint-text"><p id="answer-note" class="input-note">按 Enter 提交。答案只作文本检查，不会执行。</p><p id="hint-text" class="hint-text" hidden></p><div class="form-actions"><button id="hint" type="button" class="text-button" disabled>☼ 给我一点提示</button><button id="submit" type="submit" class="primary" disabled>提交答案 <span aria-hidden="true">→</span></button></div></form>
+          </section>
+          <section id="completion" class="completion-card" hidden><span class="completion-mark" aria-hidden="true">✓</span><p class="eyebrow">TWO SMALL STEPS, COMPLETED</p><h2>两道练习，已经走完。</h2><p>你已独立答对函数参数与返回值练习。<br>这是两次具体作答的证据，不代表对 JavaScript 的广泛掌握。</p><button id="restart-done" class="primary">重新练习 ↺</button></section>
+          <p class="scope-note">练习边界：只检查这两道题，不评估迁移能力或整体熟练程度。</p>
+        </div>
+        <aside class="history-panel" aria-labelledby="history-title"><div class="history-heading"><h2 id="history-title">学习足迹</h2><span id="history-count">0 条</span></div><p class="history-subtitle">每一次尝试，都留下真实记录。</p><ol id="history"></ol><p id="history-empty" class="history-empty">还没有学习记录。<br>从左侧的第一步开始，<br>慢慢来，也是在前进。</p><div class="history-key"><span>○ 阅读</span><span>◌ 辅助</span><span>✓ 独立答对</span></div></aside>
+      </div>
+      <footer class="page-footer"><span>知微 / 学习是一点点发生的。</span><span>记录保存在本机</span></footer>
+    </main>
+  </div>
+</body>
+</html>
